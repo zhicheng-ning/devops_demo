@@ -31,7 +31,7 @@ jobs:
           password: "${{ secrets.ACR_PASSWORD }}"
       - name: Build and push image
         env:
-          MODULE_1: gateway
+          MODULE_1: "gateway"
         run: |
           docker build -t ${{ secrets.ALI_DOMAIN_NAME }}/${{ secrets.NAMESPACE }}/$MODULE_1:latest ./gateway 
           docker push ${{secrets.ALI_DOMAIN_NAME}}/${{secrets.NAMESPACE}}/$MODULE_1:latest
