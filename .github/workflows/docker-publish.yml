@@ -65,14 +65,14 @@ jobs:
       COMPOSE_PATH: scp/devops_demo/docker-compose.yml
     steps:
       - name: Copy single file to remote
-          uses: garygrossgarten/github-action-scp@release
-          with:
-            local: ./docker-compose.yml
-            remote: $COMPOSE_PATH
-            host: ${{ secrets.HOST }}
-            username: ${{ secrets.SSH_USER }}
-            password: ${{ secrets.PASSWORD }}
-            port: ${{ secrets.PORT }}
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: ./docker-compose.yml
+          remote: $COMPOSE_PATH
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
