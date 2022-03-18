@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MODULE_1: gateway
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 8
@@ -30,8 +32,6 @@ jobs:
           username: "${{ secrets.ACR_USERNAME }}"
           password: "${{ secrets.ACR_PASSWORD }}"
       - name: Build and push image
-        env:
-          MODULE_1: "gateway"
         run: |
           docker build -t ${{ secrets.ALI_DOMAIN_NAME }}/${{ secrets.NAMESPACE }}/$MODULE_1:latest ./gateway 
           docker push ${{secrets.ALI_DOMAIN_NAME}}/${{secrets.NAMESPACE}}/$MODULE_1:latest
