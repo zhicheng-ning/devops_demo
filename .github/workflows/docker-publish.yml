@@ -37,7 +37,7 @@ jobs:
           region-id: cn-shanghai  # 3
           username: "${{ secrets.ACR_USERNAME }}"
           password: "${{ secrets.ACR_PASSWORD }}"
-      - name: Build and push image
+#      - name: Build and push image
 #        run: |
 #          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest ./$MODULE_1
 #          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest
@@ -64,8 +64,7 @@ jobs:
     env:
       COMPOSE_PATH: scp/devops_demo/docker-compose.yml
     steps:
-      - use: |
-          pwd
+      - use: pwd
 #      - name: Copy single file to remote
 #        uses: garygrossgarten/github-action-scp@release
 #        with:
