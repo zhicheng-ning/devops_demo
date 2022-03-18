@@ -32,10 +32,16 @@ jobs:
       - name: Build and push image
         env:
           MODULE_1: gateway
+          MODULE_2: hello
+          MODULE_3: login
+          MODULE_4: provider_one
+          MODULE_5: provider_two
+          MODULE_6: provider_three
         run: |
-          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest ./gateway
-          docker images ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest
-#          docker push ${{secrets.ALI_DOMAIN_NAME}}/${{secrets.NAMESPACE}}/$MODULE_1
+          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest ./$MODULE_1
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_2:latest ./$MODULE_2
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_2:latest
 
 #  depoly:
 #    needs: [ build ]
