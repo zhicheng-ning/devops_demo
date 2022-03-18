@@ -32,9 +32,8 @@ jobs:
       - name: Build and push image
         env:
           MODULE_1: gateway
-          IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:$IMAGE_TAG ./gateway
+          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest ./gateway
 #          docker push ${{secrets.ALI_DOMAIN_NAME}}/${{secrets.NAMESPACE}}/$MODULE_1
 
 #  depoly:
