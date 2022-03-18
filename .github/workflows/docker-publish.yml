@@ -34,6 +34,7 @@ jobs:
           MODULE_1: gateway
         run: |
           docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest ./gateway
+          docker images ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest
 #          docker push ${{secrets.ALI_DOMAIN_NAME}}/${{secrets.NAMESPACE}}/$MODULE_1
 
 #  depoly:
