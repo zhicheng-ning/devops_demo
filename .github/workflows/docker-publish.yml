@@ -38,24 +38,24 @@ jobs:
           username: "${{ secrets.ACR_USERNAME }}"
           password: "${{ secrets.ACR_PASSWORD }}"
       - name: Build and push image
-        run: |
-          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest ./$MODULE_1
-          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest
-          
-          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_2:latest ./$MODULE_2
-          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_2:latest
-          
-          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_3:latest ./$MODULE_3
-          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_3:latest
-          
-          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_4:latest ./$MODULE_4
-          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_4:latest
-          
-          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_5:latest ./$MODULE_5
-          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_5:latest
-          
-          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_6:latest ./$MODULE_6
-          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_6:latest
+#        run: |
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest ./$MODULE_1
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest
+#
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_2:latest ./$MODULE_2
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_2:latest
+#
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_3:latest ./$MODULE_3
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_3:latest
+#
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_4:latest ./$MODULE_4
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_4:latest
+#
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_5:latest ./$MODULE_5
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_5:latest
+#
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_6:latest ./$MODULE_6
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_6:latest
 
   depoly:
     needs: [ build ]
@@ -64,29 +64,33 @@ jobs:
     env:
       COMPOSE_PATH: scp/devops_demo/docker-compose.yml
     steps:
-      - name: Copy single file to remote
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: ./docker-compose.yml
-          remote: $COMPOSE_PATH
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER_NAME }}
-          password: ${{ secrets.USER_PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            docker-compose -f $COMPOSE_PATH up -d
-            docker-compose -f $COMPOSE_PATH stop
-            docker-compose -f $COMPOSE_PATH pull
-            docker-compose -f $COMPOSE_PATH up -d
+      - use: |
+          pwd
+#      - name: Copy single file to remote
+#        uses: garygrossgarten/github-action-scp@release
+#        with:
+#          local: ./docker-compose.yml
+#          remote: $COMPOSE_PATH
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.SSH_USER }}
+#          password: ${{ secrets.PASSWORD }}
+#          port: ${{ secrets.PORT }}
+#      - name: executing remote ssh commands using password
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.USER_NAME }}
+#          password: ${{ secrets.USER_PASSWORD }}
+#          port: ${{ secrets.PORT }}
+#          script: |
+#            docker-compose -f $COMPOSE_PATH up -d
+#            docker-compose -f $COMPOSE_PATH stop
+#            docker-compose -f $COMPOSE_PATH pull
+#            docker-compose -f $COMPOSE_PATH up -d
             
             
+
+
             
 
 #            docker stop $(docker ps -a | grep -w ${{ secrets.REPOSITORY_URL }}| awk '{print $1}')
