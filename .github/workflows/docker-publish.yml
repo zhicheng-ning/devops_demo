@@ -5,6 +5,14 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  MODULE_1: gateway
+  MODULE_2: hello
+  MODULE_3: login
+  MODULE_4: provider_one
+  MODULE_5: provider_two
+  MODULE_6: provider_three
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,18 +38,24 @@ jobs:
           username: "${{ secrets.ACR_USERNAME }}"
           password: "${{ secrets.ACR_PASSWORD }}"
       - name: Build and push image
-        env:
-          MODULE_1: gateway
-          MODULE_2: hello
-          MODULE_3: login
-          MODULE_4: provider_one
-          MODULE_5: provider_two
-          MODULE_6: provider_three
         run: |
           docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest ./$MODULE_1
 #          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_1:latest
+          
 #          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_2:latest ./$MODULE_2
 #          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_2:latest
+          
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_3:latest ./$MODULE_3
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_3:latest
+          
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_4:latest ./$MODULE_4
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_4:latest
+          
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_5:latest ./$MODULE_5
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_5:latest
+          
+#          docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_6:latest ./$MODULE_6
+#          docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_6:latest
 
 #  depoly:
 #    needs: [ build ]
