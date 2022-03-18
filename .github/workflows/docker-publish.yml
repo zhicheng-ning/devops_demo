@@ -64,8 +64,8 @@ jobs:
           local: ./docker-compose.yml
           remote: $COMPOSE_PATH
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.PASSWORD }}
+          username: ${{ secrets.USER_NAME }}
+          password: ${{ secrets.USER_PASSWORD }}
           port: ${{ secrets.PORT }}
 
   depoly:
