@@ -22,21 +22,18 @@ jobs:
           pwd
           mvn -B package --file pom.xml
           pwd
-          ls ./gateway
-#      - name: Login to Aliyun Container Registry (ACR)
-#        uses: aliyun/acr-login@v1
-#        with:
-#          login-server: https://registry.cn-shanghai.aliyuncs.com
-#          region-id: cn-shanghai  # 3
-#          username: "${{ secrets.ACR_USERNAME }}"
-#          password: "${{ secrets.ACR_PASSWORD }}"
-#      - name: Build and push image
-#        env:
-#          IMAGE_TAG: ${{ github.sha }}
-#        run: |
-#          docker build -t ${{ secrets.REPOSITORY_URL }}:$IMAGE_TAG .
-#          docker tag $(docker images ${{ secrets.REPOSITORY_URL }}:$IMAGE_TAG -q) ${{ secrets.REPOSITORY_URL }}:latest
-#          docker push ${{ secrets.REPOSITORY_URL }}:latest
+      - name: Login to Aliyun Container Registry (ACR)
+        uses: aliyun/acr-login@v1
+        with:
+          login-server: https://registry.cn-shanghai.aliyuncs.com
+          region-id: cn-shanghai  # 3
+          username: "${{ secrets.ACR_USERNAME }}"
+          password: "${{ secrets.ACR_PASSWORD }}"
+      - name: Build and push image
+        run: |
+          docker build --build-arg MODULE_NAME=gateway -t ${{secret.ALI_DOMAIN_NAME}}/${{secret.NAMESPACE}}/$MODULE_NAME:latest ./gateway 
+          docker push ${{secret.ALI_DOMAIN_NAME}}/${{secret.NAMESPACE}}/$MODULE_NAME:latest
+
 #  depoly:
 #    needs: [ build ]
 #    name: Docker Pull And Run
