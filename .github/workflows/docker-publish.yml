@@ -57,19 +57,38 @@ jobs:
           docker build -t ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_6:latest ./$MODULE_6
           docker push ${{ secrets.ALI_NAMESPACE_URL }}/$MODULE_6:latest
 
-#  depoly:
-#    needs: [ build ]
-#    name: Docker Pull And Run
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: executing remote ssh commands using password
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USER_NAME }}
-#          password: ${{ secrets.USER_PASSWORD }}
-#          port: ${{ secrets.PORT }}
-#          script: |
+  depoly:
+    needs: [ build ]
+    name: Docker Pull And Docker-compose Run
+    runs-on: ubuntu-latest
+    env:
+      COMPOSE_PATH: scp/devops_demo/docker-compose.yml
+    steps:
+      - name: Copy single file to remote
+          uses: garygrossgarten/github-action-scp@release
+          with:
+            local: ./docker-compose.yml
+            remote: $COMPOSE_PATH
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.SSH_USER }}
+            password: ${{ secrets.PASSWORD }}
+            port: ${{ secrets.PORT }}
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER_NAME }}
+          password: ${{ secrets.USER_PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            docker-compose -f $COMPOSE_PATH up -d
+            docker-compose -f $COMPOSE_PATH stop
+            docker-compose -f $COMPOSE_PATH pull
+            docker-compose -f $COMPOSE_PATH up -d
+            
+            
+            
+
 #            docker stop $(docker ps -a | grep -w ${{ secrets.REPOSITORY_URL }}| awk '{print $1}')
 #            docker rm -f $(docker ps -a | grep -w ${{ secrets.REPOSITORY_URL }}| awk '{print $1}')
 #            docker rmi -f $(docker images  ${{ secrets.REPOSITORY_URL }}:latest -q)
