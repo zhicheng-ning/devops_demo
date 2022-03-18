@@ -33,7 +33,7 @@ jobs:
         env:
           MODULE_1: gateway
         run: |
-          docker build -t ${{secrets.ALI_DOMAIN_NAME}}/${{secrets.NAMESPACE}}/$MODULE_1:latest ./gateway 
+          docker build -t ${{ secrets.ALI_DOMAIN_NAME }}/${{ secrets.NAMESPACE }}/$MODULE_1:latest ./gateway 
           docker push ${{secrets.ALI_DOMAIN_NAME}}/${{secrets.NAMESPACE}}/$MODULE_1:latest
 
 #  depoly:
