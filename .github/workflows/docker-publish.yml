@@ -31,8 +31,8 @@ jobs:
           password: "${{ secrets.ACR_PASSWORD }}"
       - name: Build and push image
         run: |
-          docker build --build-arg MODULE_NAME=gateway -t ${{secret.ALI_DOMAIN_NAME}}/${{secret.NAMESPACE}}/$MODULE_NAME:latest ./gateway 
-          docker push ${{secret.ALI_DOMAIN_NAME}}/${{secret.NAMESPACE}}/$MODULE_NAME:latest
+          docker build --build-arg MODULE_NAME=gateway -t ${{secrets.ALI_DOMAIN_NAME}}/${{secrets.NAMESPACE}}/$MODULE_NAME:latest ./gateway 
+          docker push ${{secrets.ALI_DOMAIN_NAME}}/${{secrets.NAMESPACE}}/$MODULE_NAME:latest
 
 #  depoly:
 #    needs: [ build ]
