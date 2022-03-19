@@ -84,16 +84,5 @@ jobs:
             docker-compose -f scp/devops_demo/docker-compose.yml stop
             docker-compose -f scp/devops_demo/docker-compose.yml pull
             docker-compose -f scp/devops_demo/docker-compose.yml up -d
-
-
-
-
-
-
-#            docker stop $(docker ps -a | grep -w ${{ secrets.REPOSITORY_URL }}| awk '{print $1}')
-#            docker rm -f $(docker ps -a | grep -w ${{ secrets.REPOSITORY_URL }}| awk '{print $1}')
-#            docker rmi -f $(docker images  ${{ secrets.REPOSITORY_URL }}:latest -q)
-#            docker login --username=${{ secrets.ACR_USERNAME }} --password ${{ secrets.ACR_PASSWORD }} registry.cn-shanghai.aliyuncs.com
-#            docker pull ${{ secrets.REPOSITORY_URL }}:latest
-#            docker run -d -p 8888:8888 ${{ secrets.REPOSITORY_URL }}:latest
+            docker image prune -f
 
