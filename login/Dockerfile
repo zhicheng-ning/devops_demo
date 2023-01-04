@@ -1,4 +1,4 @@
-FROM java:8
+FROM ahawker/jre8
 
 MAINTAINER ningzhicheng
 
